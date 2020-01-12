@@ -1,9 +1,10 @@
-package com.bookyourworkerapp
+package com.bookyourworkerapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bookyourworkerapp.R
 
-class MainActivity : AppCompatActivity() {
+public class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
