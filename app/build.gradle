@@ -80,4 +80,7 @@ dependencies {
 
     kapt "com.android.databinding:compiler:$gradle_version"
 
+    // DI Koin components
+    implementation 'org.koin:koin-android:2.0.1'
+    implementation 'org.koin:koin-android-viewmodel:2.0.1'
 }

@@ -14,8 +14,10 @@ public class NewFormActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_form)
         binding.executePendingBindings()
-        
+
     }
+
+
 
 
 }

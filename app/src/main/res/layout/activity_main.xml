@@ -9,7 +9,7 @@
 
         <variable
             name="formData"
-            type="com.bookyourworkerapp.model.FormData" />
+            type="com.bookyourworkerapp.database.FormEntity" />
 
     </data>
 
@@ -105,7 +105,7 @@
 -->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/form_list"
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

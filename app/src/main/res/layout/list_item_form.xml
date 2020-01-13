@@ -9,7 +9,7 @@
 
         <variable
             name="formData"
-            type="com.bookyourworkerapp.model.FormData" />
+            type="com.bookyourworkerapp.database.FormEntity" />
 
     </data>
 

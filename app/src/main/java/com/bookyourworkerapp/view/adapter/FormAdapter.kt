@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bookyourworkerapp.R
+import com.bookyourworkerapp.database.FormEntity
 import com.bookyourworkerapp.databinding.ListItemFormBinding
-import com.bookyourworkerapp.model.FormData
 
-class FormAdapter(val formList : ArrayList<FormData>): RecyclerView.Adapter<FormAdapter.ViewHolder>(){
+class FormAdapter: RecyclerView.Adapter<FormAdapter.ViewHolder>(){
 
-
+    private val formList : List<FormEntity> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ListItemFormBinding = DataBindingUtil.inflate(LayoutInflater.from
@@ -29,7 +29,7 @@ class FormAdapter(val formList : ArrayList<FormData>): RecyclerView.Adapter<Form
 
     class ViewHolder(val binding:ListItemFormBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: FormData){
+        fun bind(data: FormEntity){
 
         }
 
