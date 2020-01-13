@@ -19,17 +19,15 @@ class FormAdapter: RecyclerView.Adapter<FormAdapter.ViewHolder>(){
         return ViewHolder(binding)
     }
 
-
-
     override fun getItemCount(): Int = formList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder
+        holder.bind(formList)
     }
 
     class ViewHolder(val binding:ListItemFormBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: FormEntity){
+        fun bind(data: List<FormEntity>){
 
         }
 

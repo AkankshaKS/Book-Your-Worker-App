@@ -3,4 +3,9 @@
     <string name="form_title">Form Title</string>
     <string name="form_description">Form Description</string>
     <string name="budget">Budget</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="rate">Rate</string>
+    <string name="job_term">Job Term</string>
+    <string name="start_date">Start Date</string>
+    <string name="attachments">Attachments</string>
 </resources>
