@@ -1,16 +1,38 @@
 package com.bookyourworkerapp.view.adapter
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bookyourworkerapp.model.User
+import com.bookyourworkerapp.R
+import com.bookyourworkerapp.databinding.ListItemFormBinding
+import com.bookyourworkerapp.model.FormData
 
-class FormAdapter(val formList : ArrayList<User>): RecyclerView.Adapter<FormAdapter.ViewHolder>(){
+class FormAdapter(val formList : ArrayList<FormData>): RecyclerView.Adapter<FormAdapter.ViewHolder>(){
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding: ListItemFormBinding = DataBindingUtil.inflate(LayoutInflater.from
+            (parent.context), R.layout.list_item_form, parent, false)
+        return ViewHolder(binding)
     }
 
+
+
+    override fun getItemCount(): Int = formList.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder
+    }
+
+    class ViewHolder(val binding:ListItemFormBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(data: FormData){
+
+        }
+
+    }
 
 }
