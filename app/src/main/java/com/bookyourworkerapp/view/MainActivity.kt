@@ -1,12 +1,17 @@
 package com.bookyourworkerapp.view
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bookyourworkerapp.R
+import com.bookyourworkerapp.database.FormEntity
 import com.bookyourworkerapp.databinding.ActivityMainBinding
 import com.bookyourworkerapp.view.adapter.FormAdapter
 import com.bookyourworkerapp.viewmodel.FormViewModel
@@ -25,15 +30,27 @@ class MainActivity : AppCompatActivity() {
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainBinding.executePendingBindings()
         setupRecyclerView()
+        setupButtonAddForm()
 
-        mainBinding.addnewform.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
 
-                val intent = Intent(this@MainActivity, NewFormActivity::class.java)
-                startActivity(intent)
-            }
+        viewModel.getAllForms().observe(this,
+            Observer<List<FormEntity>> { list ->
+                list?.let {
+                    adapter.setFormList(it)
+                }
+            })
 
-        })
+
+    }
+
+    private fun setupButtonAddForm() {
+        addnewform.setOnClickListener {
+            startActivityForResult(
+                Intent(this, NewFormActivity::class.java),
+                ADD_NOTE_REQUEST
+            )
+        }
+
     }
 
     private fun setupRecyclerView() {
@@ -42,5 +59,30 @@ class MainActivity : AppCompatActivity() {
         recycler_view.adapter = adapter
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_NOTE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            val newForm = FormEntity(
+                data.getStringExtra(NewFormActivity.EXTRA_TITLE),
+                data.getStringExtra(NewFormActivity.EXTRA_DESCRIPTION),
+                data.getStringExtra(NewFormActivity.EXTRA_BUDGET),
+                data.getStringExtra(NewFormActivity.EXTRA_RATE),
+                data.getStringExtra(NewFormActivity.EXTRA_PAYMENT_METHOD),
+                data.getStringExtra(NewFormActivity.EXTRA_DATE),
+                data.getStringExtra(NewFormActivity.EXTRA_JOBTERM))
+
+            viewModel.insert(newForm)
+
+            Toast.makeText(this, "Form saved!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Form not saved! Please try again", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    companion object{
+        private const val ADD_NOTE_REQUEST = 1
+    }
 
 }
