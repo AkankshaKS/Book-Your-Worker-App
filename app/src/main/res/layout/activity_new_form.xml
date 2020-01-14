@@ -142,6 +142,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/form_budget"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/budget" />
@@ -323,6 +324,13 @@
                 android:layout_below="@id/tv_Attachments"
                 android:layout_margin="4dp"
                 android:src="@drawable/attachment" />
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_toRightOf="@id/btn_attachment"
+                android:layout_margin="4dp" />
 
         </RelativeLayout>
 

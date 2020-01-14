@@ -43,6 +43,20 @@
                 android:layout_margin="8dp"
                 tools:text="A small family need house helper"/>
 
+        <RelativeLayout
+            android:id="@+id/deleteForm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_option_menu" />
+
+        </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_below="@id/tv_title_form"
@@ -155,6 +169,7 @@
                     android:textAllCaps="false"
                     android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:text="@string/invite"
                     android:layout_height="wrap_content"
                     tools:text="Invite"/>
 
@@ -164,6 +179,7 @@
                     android:textAllCaps="false"
                     android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:text="@string/inbox"
                     android:layout_height="wrap_content"
                     tools:text="Inbox"/>
 

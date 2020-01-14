@@ -20,6 +20,6 @@ val repositoryModule = module { single{
 }
 
 val uiModule = module {
-    factory { FormAdapter() }
+    factory { FormAdapter()}
     viewModel { FormViewModel(get()) }
 }

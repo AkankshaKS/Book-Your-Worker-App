@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -46,6 +48,9 @@ class NewFormActivity : AppCompatActivity(), View.OnClickListener {
         form_title.addTextChangedListener(textWatcher)
         form_desc.addTextChangedListener(textWatcher)
         form_budget.addTextChangedListener(textWatcher)
+        form_rate.addTextChangedListener(textWatcher)
+        form_date.addTextChangedListener(textWatcher)
+        form_payment_method.addTextChangedListener(textWatcher)
 
 
         save_form.setOnClickListener(this)
@@ -53,6 +58,8 @@ class NewFormActivity : AppCompatActivity(), View.OnClickListener {
         form_rate.setOnClickListener(this)
         form_payment_method.setOnClickListener(this)
         form_job_term.setOnClickListener(this)
+        btn_attachment.setOnClickListener(this)
+
     }
 
     private fun saveForm() {
@@ -108,26 +115,23 @@ class NewFormActivity : AppCompatActivity(), View.OnClickListener {
 
         override
         fun afterTextChanged(editable: Editable?) {
-            /*if (editable != null && !editable.toString().equals("")) {
-                // Checking editable.hashCode() to understand which edittext is using right now
-                if (editText.editText!!.text.hashCode() === editable.hashCode()) {
-                    // This is just an example, your magic will be here!
-
-                    val value = editable.toString()
-                    editText.editText!!.removeTextChangedListener(this)
-                    editText.editText!!.setText(value)
-                    editText.editText!!.addTextChangedListener(this)
+            if (editable != null && !editable.toString().equals("")) {
+                if (form_title.text.isNullOrEmpty()) {
+                    form_title.setError("Required")
+                }else if(form_budget.text.isNullOrEmpty()){
+                    form_budget.setError("Required")
+                } else if(form_rate.text.isNullOrEmpty()){
+                    form_rate.setError("Required")
+                }else if(form_payment_method.text.isNullOrEmpty()){
+                    form_payment_method.setError("Required")
+                }else if(form_desc.text.isNullOrEmpty()){
+                    form_desc.setError("Required")
+                }else if(form_date.text.isNullOrEmpty()){
+                    form_date.setError("Required")
                 }
-            } else if (editText2.editText!!.text.hashCode() === editable!!.hashCode()) {
-                // This is just an example, your magic will be here!
-
-                val value = editable!!.toString()
-                editText2.editText!!.removeTextChangedListener(this)
-                editText2.editText!!.setText(value)
-                editText2.editText!!.addTextChangedListener(this)
             }
-        }*/
         }
+
     }
 
     override fun onClick(v: View?) {
@@ -138,9 +142,29 @@ class NewFormActivity : AppCompatActivity(), View.OnClickListener {
             form_rate -> showRateDialog()
             form_payment_method -> showPaymentDialog()
             form_job_term -> showJobTermDialog()
-
+            btn_attachment -> selectImageInAlbum()
         }
 
+    }
+
+    fun selectImageInAlbum() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, 1)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+
+            val imageBitmap = data.extras?.get("data") as Bitmap
+            imageview.setImageBitmap(imageBitmap)
+
+
+        }
     }
 
     private fun showJobTermDialog() {
@@ -200,5 +224,6 @@ class NewFormActivity : AppCompatActivity(), View.OnClickListener {
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         form_date!!.setText(sdf.format(cal.getTime()))
     }
+
 
 }

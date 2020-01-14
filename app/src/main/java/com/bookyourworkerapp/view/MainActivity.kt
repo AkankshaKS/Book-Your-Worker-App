@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -15,7 +15,10 @@ import com.bookyourworkerapp.database.FormEntity
 import com.bookyourworkerapp.databinding.ActivityMainBinding
 import com.bookyourworkerapp.view.adapter.FormAdapter
 import com.bookyourworkerapp.viewmodel.FormViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.bottom_sheet.*
+import kotlinx.android.synthetic.main.bottom_sheet.view.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainBinding : ActivityMainBinding
     private val viewModel: FormViewModel by inject()
     private val adapter : FormAdapter by inject()
+    lateinit var inflater : LayoutInflater
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,16 +45,24 @@ class MainActivity : AppCompatActivity() {
             })
 
 
+
+        inflater = LayoutInflater.from(applicationContext)
+        val view = inflater.inflate(R.layout.bottom_sheet, null)
+        view.bottom_delete.setOnClickListener(View.OnClickListener {
+            deleteForm()
+        })
+
     }
 
+
     private fun setupButtonAddForm() {
-        addnewform.setOnClickListener {
+
+        addnewform.setOnClickListener(View.OnClickListener {
             startActivityForResult(
                 Intent(this, NewFormActivity::class.java),
-                ADD_NOTE_REQUEST
-            )
-        }
+                ADD_NOTE_REQUEST)
 
+        })
     }
 
     private fun setupRecyclerView() {
@@ -75,14 +87,17 @@ class MainActivity : AppCompatActivity() {
             viewModel.insert(newForm)
 
             Toast.makeText(this, "Form saved!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Form not saved! Please try again", Toast.LENGTH_SHORT).show()
         }
     }
 
-
     companion object{
         private const val ADD_NOTE_REQUEST = 1
+    }
+
+
+
+    private fun deleteForm() {
+        viewModel.deleteAll()
     }
 
 }
